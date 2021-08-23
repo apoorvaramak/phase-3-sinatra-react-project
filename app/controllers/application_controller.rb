@@ -60,7 +60,7 @@ class ApplicationController < Sinatra::Base
     review.to_json
   end
 
-  patch "/books/:id" do
+  patch "/books/:id/edit" do
     book = Book.find(params[:id])
     book.update(
       author: params[:author],
