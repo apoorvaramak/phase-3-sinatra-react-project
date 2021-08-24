@@ -6,30 +6,41 @@ class ApplicationController < Sinatra::Base
     { message: "epic job team :)" }.to_json
   end
 
-  get "/books" do
+  get '/books' do
     books = Book.all
+<<<<<<< HEAD
     books.to_json(include: :reviews)
+=======
+    books.to_json(include: { reviews: {include: :user} })
+>>>>>>> fc78845604a76bf7f1e2c205635d2771a0fe139d
   end
 
   get "/books/:id" do
     book = Book.find(params[:id])
-    book.to_json(include: :reviews)
+    book.to_json(include: { reviews: {include: :user} })
   end
 
   get "/users" do
     users = User.all
+<<<<<<< HEAD
     users.to_json(include: :reviews)
+=======
+    users.to_json(include: { reviews: {include: :book} })
+>>>>>>> fc78845604a76bf7f1e2c205635d2771a0fe139d
   end
 
   get "/users/:id" do
     user = User.find(params[:id])
-    user.to_json(include: :reviews)
+    user.to_json(include: { reviews: {include: :book} })
   end
 
   get "/reviews/:id" do
     review = Review.find(params[:id])
     review.to_json({:include => [:user, :book]})
+<<<<<<< HEAD
 
+=======
+>>>>>>> fc78845604a76bf7f1e2c205635d2771a0fe139d
   end
 
   post "/books/add" do
@@ -61,7 +72,7 @@ class ApplicationController < Sinatra::Base
     review.to_json
   end
 
-  patch "/books/:id" do
+  patch "/books/:id/edit" do
     book = Book.find(params[:id])
     book.update(
       author: params[:author],
