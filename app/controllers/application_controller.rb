@@ -6,29 +6,29 @@ class ApplicationController < Sinatra::Base
     { message: "epic job team :)" }.to_json
   end
 
-  get "/books" do
+  get '/books' do
     books = Book.all
-    books.to_json
+    books.to_json(include: { reviews: {include: :user} })
   end
 
   get "/books/:id" do
     book = Book.find(params[:id])
-    book.to_json(include: :reviews)
+    book.to_json(include: { reviews: {include: :user} })
   end
 
   get "/users" do
     users = User.all
-    users.to_json
+    users.to_json(include: { reviews: {include: :book} })
   end
 
   get "/users/:id" do
     user = User.find(params[:id])
-    user.to_json(include: :reviews)
+    user.to_json(include: { reviews: {include: :book} })
   end
 
   get "/reviews/:id" do
     review = Review.find(params[:id])
-    review.to_json
+    review.to_json({:include => [:user, :book]})
   end
 
   post "/books/add" do
