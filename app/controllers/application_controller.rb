@@ -8,7 +8,7 @@ class ApplicationController < Sinatra::Base
 
   get "/books" do
     books = Book.all
-    books.to_json
+    books.to_json(include: :reviews)
   end
 
   get "/books/:id" do
@@ -18,7 +18,7 @@ class ApplicationController < Sinatra::Base
 
   get "/users" do
     users = User.all
-    users.to_json
+    users.to_json(include: :reviews)
   end
 
   get "/users/:id" do
@@ -28,7 +28,8 @@ class ApplicationController < Sinatra::Base
 
   get "/reviews/:id" do
     review = Review.find(params[:id])
-    review.to_json
+    review.to_json({:include => [:user, :book]})
+
   end
 
   post "/books/add" do
