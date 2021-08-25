@@ -49,7 +49,8 @@ class ApplicationController < Sinatra::Base
     review = Review.create(
       content: params["content"],
       rating: params["rating"],
-      book_id: params["book_id"]
+      book_id: params["book_id"],
+      user_id: params["user_id"]
     )
     review.to_json
   end
@@ -84,7 +85,8 @@ class ApplicationController < Sinatra::Base
     review.update(
       content: params["content"],
       rating: params["rating"],
-      book_id: params["book_id"]
+      book_id: params["book_id"],
+      user_id: params["user_id"]
     )
     review.to_json
   end
