@@ -1,3 +1,4 @@
+require 'pry'
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
@@ -43,9 +44,12 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/reviews/add" do
+    params = JSON.parse(request.body.read)
+    # binding.pry
     review = Review.create(
-      content: params[:content],
-      rating: params[:rating]
+      content: params["content"],
+      rating: params["rating"],
+      book_id: params["book_id"]
     )
     review.to_json
   end
@@ -73,10 +77,12 @@ class ApplicationController < Sinatra::Base
   end
 
   patch "/reviews/:id" do
-    review = Review.find(params[:id])
+    params = JSON.parse(request.body.read)
+    review = Review.find(params["id"])
     review.update(
-      content: params[:content],
-      rating: params[:rating]
+      content: params["content"],
+      rating: params["rating"],
+      book_id: params["book_id"]
     )
     review.to_json
   end
