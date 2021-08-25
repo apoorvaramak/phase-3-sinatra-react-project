@@ -9,7 +9,11 @@ class ApplicationController < Sinatra::Base
 
   get '/books' do
     books = Book.all
+<<<<<<< HEAD
+    books.to_json(include: :reviews)
+=======
     books.to_json(include: { reviews: {include: :user} })
+>>>>>>> fc78845604a76bf7f1e2c205635d2771a0fe139d
   end
 
   get "/books/:id" do
@@ -19,7 +23,11 @@ class ApplicationController < Sinatra::Base
 
   get "/users" do
     users = User.all
+<<<<<<< HEAD
+    users.to_json(include: :reviews)
+=======
     users.to_json(include: { reviews: {include: :book} })
+>>>>>>> fc78845604a76bf7f1e2c205635d2771a0fe139d
   end
 
   get "/users/:id" do
@@ -30,6 +38,10 @@ class ApplicationController < Sinatra::Base
   get "/reviews/:id" do
     review = Review.find(params[:id])
     review.to_json({:include => [:user, :book]})
+<<<<<<< HEAD
+
+=======
+>>>>>>> fc78845604a76bf7f1e2c205635d2771a0fe139d
   end
 
   post "/books/add" do
