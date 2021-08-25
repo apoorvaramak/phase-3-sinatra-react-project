@@ -33,12 +33,13 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/books/add" do
+    params = JSON.parse(request.body.read)
     book = Book.create(
-      author: params[:author],
-      title: params[:title],
-      genre: params[:genre],
-      publisher: params[:publisher],
-      page_count: params[:page_count]
+      title: params["title"],
+      author: params["author"],
+      publisher: params["publisher"],
+      genre: params["genre"],
+      page_count: params["page_count"]
     )
     book.to_json
   end
@@ -56,13 +57,13 @@ class ApplicationController < Sinatra::Base
   end
 
   delete "/books/:id" do
-    book = Book.find(params[:id])
-    book.destroy_all
+    book = Book.find(params[:id]).destroy_all
     book.to_json
   end
 
   delete "/reviews/:id" do
-    review = Review.find(params[:id])
+    params = JSON.parse(request.body.read)
+    review = Review.find(params["id"])
     review.destroy
     review.to_json
   end
@@ -85,8 +86,7 @@ class ApplicationController < Sinatra::Base
     review.update(
       content: params["content"],
       rating: params["rating"],
-      book_id: params["book_id"],
-      user_id: params["user_id"]
+      book_id: params["book_id"]
     )
     review.to_json
   end
