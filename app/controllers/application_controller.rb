@@ -62,8 +62,8 @@ class ApplicationController < Sinatra::Base
   end
 
   delete "/reviews/:id" do
-    params = JSON.parse(request.body.read)
-    review = Review.find(params["id"])
+    id = request.env["PATH_INFO"].split('/')[2]
+    review = Review.find(id)
     review.destroy
     review.to_json
   end
