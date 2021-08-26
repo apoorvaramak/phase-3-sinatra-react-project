@@ -56,6 +56,18 @@ class ApplicationController < Sinatra::Base
     review.to_json
   end
 
+  post "/users/add" do
+    params = JSON.parse(request.body.read)
+    # binding.pry
+    user = User.create(
+      name: params["name"],
+      birthday: params["birthday"],
+      xp: params["xp"],
+      pfp: params["pfp"]
+    )
+    user.to_json(include: { reviews: {include: :book} })
+  end
+
   delete "/books/:id" do
     book = Book.find(params[:id]).destroy_all
     book.to_json
