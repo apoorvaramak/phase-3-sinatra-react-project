@@ -41,7 +41,7 @@ class ApplicationController < Sinatra::Base
       genre: params["genre"],
       page_count: params["page_count"]
     )
-    book.to_json
+    book.to_json(include: { reviews: {include: :user} })
   end
 
   post "/reviews/add" do
