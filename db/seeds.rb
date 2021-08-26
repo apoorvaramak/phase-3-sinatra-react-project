@@ -20,7 +20,8 @@ end
     User.create(
         birthday: Faker::Date.birthday(min_age: 13, max_age: 99),
         name: Faker::Name.name,
-        xp: rand(0..1000)
+        xp: rand(0..1000),
+        pfp: Faker::Avatar.image
     )
 end
 

@@ -91,6 +91,15 @@ class ApplicationController < Sinatra::Base
     review.to_json
   end
 
+  patch "/users/:id" do
+    # params = JSON.parse(request.body.read)
+    user = User.find(params[:id])
+    user.update(
+      pfp: params[:pfp]
+    )
+    user.to_json
+  end
+
 
 
 
