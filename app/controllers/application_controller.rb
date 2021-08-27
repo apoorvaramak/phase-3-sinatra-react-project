@@ -53,7 +53,8 @@ class ApplicationController < Sinatra::Base
       book_id: params["book_id"],
       user_id: params["user_id"]
     )
-    review.to_json
+    review.user.reCalculateXP
+    review.to_json({:include => [:user, :book]})
   end
 
   post "/users/add" do

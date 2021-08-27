@@ -25,7 +25,7 @@ end
     )
 end
 
-20.times do 
+100.times do 
     Review.create(
         user_id: User.ids.sample,
         book_id: Book.ids.sample,
